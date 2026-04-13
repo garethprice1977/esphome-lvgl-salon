@@ -104,7 +104,7 @@ lvgl:
             height: $button_height_single
             width: $button_width
             checkable: true
-            id: office_scene_features_button
+            id: outdoor_lights_button
             styles: control
             grid_cell_column_pos: 0
             grid_cell_row_pos: 0
@@ -117,12 +117,12 @@ lvgl:
               - label:
                   align: bottom_left
                   id: scene_features_label
-                  text: "Features"
+                  text: "Outdoor Lights"
             on_press:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: light.toggle
                   data:
-                    entity_id: switch.office_features_stateful_scene
+                    entity_id : light.outdoors
 
         # =========================================================================
         # BUTTON: Calls Scene
