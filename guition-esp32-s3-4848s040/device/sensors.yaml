@@ -626,7 +626,7 @@ binary_sensor:
   #   If position is between 97-100%, we consider it "fully open".
   #
   # HOW THE CODE WORKS:
-  #   1. Check if office_blind_position has received a value yet
+  #   1. Check if garage_door has received a value yet
   #   2. Calculate: |current_position - 100| <= 3
   #   3. Return true if within range, false otherwise
   #
@@ -639,8 +639,8 @@ binary_sensor:
   - platform: template
     id: office_blind_100
     lambda: |-
-      if (id(office_blind_position).has_state()) {
-        return abs(id(office_blind_position).state - 100) <= 3;
+      if (id(garage_door).has_state()) {
+        return abs(id(garage_door).state - 100) <= 3;
       }
       return false;
     on_state:
@@ -669,8 +669,8 @@ binary_sensor:
   - platform: template
     id: office_blind_66
     lambda: |-
-      if (id(office_blind_position).has_state()) {
-        return abs(id(office_blind_position).state - 66) <= 3;
+      if (id(garage_door).has_state()) {
+        return abs(id(garage_door).state - 66) <= 3;
       }
       return false;
     on_state:
@@ -699,8 +699,8 @@ binary_sensor:
   - platform: template
     id: office_blind_33
     lambda: |-
-      if (id(office_blind_position).has_state()) {
-        return abs(id(office_blind_position).state - 33) <= 3;
+      if (id(garage_door).has_state()) {
+        return abs(id(garage_door).state - 33) <= 3;
       }
       return false;
     on_state:
@@ -729,8 +729,8 @@ binary_sensor:
   - platform: template
     id: office_blind_0
     lambda: |-
-      if (id(office_blind_position).has_state()) {
-        return abs(id(office_blind_position).state - 0) <= 3;
+      if (id(garage_door).has_state()) {
+        return abs(id(garage_door).state - 0) <= 3;
       }
       return false;
     on_state:
