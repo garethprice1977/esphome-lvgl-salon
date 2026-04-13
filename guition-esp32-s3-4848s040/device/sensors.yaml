@@ -469,13 +469,13 @@ binary_sensor:
   #   lvgl.yaml → office_scene_features_button
   # ===========================================================================
   - platform: homeassistant
-    id: office_scene_features
-    entity_id: switch.office_features_stateful_scene
+    id: outdoor_lights
+    entity_id: light.outdoors
     trigger_on_initial_state: true
     on_state:
       then:
         lvgl.widget.update:
-          id: office_scene_features_button
+          id: outdoor_lights_button
           state:
             checked: !lambda return x;
 
