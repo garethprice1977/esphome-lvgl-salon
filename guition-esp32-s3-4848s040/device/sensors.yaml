@@ -60,8 +60,8 @@ sensor:
   #   lvgl.yaml → temperatures label (id: temperatures)
   # ===========================================================================
   - platform: homeassistant
-    entity_id: sensor.office_temperature
-    id: office_temperature
+    entity_id: sensor.outdoor_temperature_3
+    id: outdoor_temperature
     on_value:
       - lvgl.label.update:
           id: temperatures
@@ -92,14 +92,14 @@ sensor:
   #   lvgl.yaml → temperatures label (id: temperatures)
   # ===========================================================================
   - platform: homeassistant
-    entity_id: sensor.outdoor_temperature
-    id: outdoor_temperature
+    entity_id: sensor.2nd_bedroom_temperature_humidity_temperature
+    id: study_temperature
     on_value:
       - lvgl.label.update:
           id: temperatures
           text:
             format: "%d° / %d°"
-            args: [ '(int)round(x)', '(int)round(id(office_temperature).state)' ]
+            args: [ '(int)round(x)', '(int)round(id(study_temperature).state)' ]
 
   # ===========================================================================
   # SENSOR: Office Blind Position
@@ -124,8 +124,8 @@ sensor:
   #               office_blind_33_button, office_blind_close_button
   # ===========================================================================
   - platform: homeassistant
-    entity_id: cover.office_blind
-    id: office_blind_position
+    entity_id: cover.garage_door
+    id: garage_door
     attribute: current_position
 
   # ===========================================================================
