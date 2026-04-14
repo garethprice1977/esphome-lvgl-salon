@@ -113,7 +113,7 @@ lvgl:
                   text_font: $icon_font
                   align: top_left
                   id: scene_features_icon                
-                  text: $ledstrip
+                  text: $lightbulb
               - label:
                   align: bottom_left
                   id: scene_features_label
