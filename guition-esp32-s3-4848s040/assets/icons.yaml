@@ -27,6 +27,10 @@ font:
       "\U000F0317",  # mdi-lan
       "\U000F0425",  # mdi-power
       "\U000F050F",  # mdi-thermometer
+      "\U000F1239",  # mdi-desk
+      "\U000F179B",  # mdi-light-recessed
+      "\U000F1054",  # mdi-outdoor-lamp (used for floodlight)
+      "\U000F04C8",  # mdi-spotlight
       ]
   - file: 'https://github.com/Templarian/MaterialDesign-Webfont/raw/v7.4.47/fonts/materialdesignicons-webfont.ttf'
     id: icon_font_small
@@ -59,3 +63,7 @@ substitutions:
   lan:            "\U000F0317"
   power:          "\U000F0425"
   thermometer:    "\U000F050F"
+  desk:           "\U000F1239"
+  light_recessed: "\U000F179B"
+  floodlight:     "\U000F1054"
+  spotlight:      "\U000F04C8"
