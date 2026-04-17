@@ -61,7 +61,7 @@ sensor:
   #
   # WHAT IT UPDATES:
   #   The "temperatures" label in the top-left corner of the screen
-  #   Format: "outdoor° / indoor°" (e.g., "15° / 22°")
+  #   Format: "indoor° / outdoor°" (e.g., "22° / 15°")
   #
   # HOW IT WORKS:
   #   When the office temperature changes in Home Assistant, this sensor
@@ -79,7 +79,7 @@ sensor:
           id: temperatures
           text:
             format: "%d° / %d°"
-            args: [ '(int)round(id(outdoor_temperature).state)', '(int)round(x)' ]
+            args: [ '(int)round(id(salon_temperature).state)', '(int)round(x)' ]
 
   # ===========================================================================
   # SENSOR: Outdoor Temperature
@@ -90,7 +90,7 @@ sensor:
   #
   # WHAT IT UPDATES:
   #   The "temperatures" label in the top-left corner of the screen
-  #   Format: "outdoor° / indoor°" (e.g., "15° / 22°")
+  #   Format: "indoor° / outdoor°" (e.g., "22° / 15°")
   #
   # HOW IT WORKS:
   #   When the outdoor temperature changes in Home Assistant, this sensor
@@ -111,7 +111,7 @@ sensor:
           id: temperatures
           text:
             format: "%d° / %d°"
-            args: [ '(int)round(x)', '(int)round(id(salon_temperature).state)' ]
+            args: [ '(int)round(x)', '(int)round(id(outdoor_temperature).state)' ]
 
   # ===========================================================================
   # SENSOR: Office Blind Position
