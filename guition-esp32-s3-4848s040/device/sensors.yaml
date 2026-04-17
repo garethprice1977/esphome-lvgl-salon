@@ -92,14 +92,14 @@ sensor:
   #   lvgl.yaml → temperatures label (id: temperatures)
   # ===========================================================================
   - platform: homeassistant
-    entity_id: sensor.2nd_bedroom_temperature_humidity_temperature
-    id: study_temperature
+    entity_id: sensor.zone_1_temperature_humidity_temperature
+    id: salon_temperature
     on_value:
       - lvgl.label.update:
           id: temperatures
           text:
             format: "%d° / %d°"
-            args: [ '(int)round(x)', '(int)round(id(study_temperature).state)' ]
+            args: [ '(int)round(x)', '(int)round(id(salon_temperature).state)' ]
 
   # ===========================================================================
   # SENSOR: Office Blind Position
@@ -432,26 +432,26 @@ binary_sensor:
             checked: !lambda return x;
 
   # ===========================================================================
-  # SENSOR: Office Calls Scene Active
+  # SENSOR: Office Lights Automation Active
   # ===========================================================================
   # WHAT IT MONITORS:
-  #   Whether the "Calls" (video call) lighting scene is currently active
-  #   Watches: switch.office_calls_stateful_scene in Home Assistant
+  #   Whether the "Chair Occupied" automation is currently active
+  #   Watches: automation.chair_occupied in Home Assistant
   #
   # WHAT IT UPDATES:
-  #   The "Calls" button's visual state (highlighted when active)
+  #   The "Office Lights" button's visual state (highlighted when active)
   #
   # RELATED UI ELEMENT:
-  #   lvgl.yaml → office_scene_calls_button
+  #   lvgl.yaml → office_lights_automation_button
   # ===========================================================================
   - platform: homeassistant
-    id: office_scene_desk_call
-    entity_id: switch.office_calls_stateful_scene
+    id: office_lights_automation_sensor
+    entity_id: automation.chair_occupied
     trigger_on_initial_state: true
     on_state:
       then:
         lvgl.widget.update:
-          id: office_scene_calls_button
+          id: office_lights_automation_button
           state:
             checked: !lambda return x;
 

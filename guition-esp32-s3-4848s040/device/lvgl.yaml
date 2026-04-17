@@ -125,25 +125,24 @@ lvgl:
                     entity_id : light.outdoors
 
         # =========================================================================
-        # BUTTON: Calls Scene
+        # BUTTON: Office Lights Automation
         # =========================================================================
         # WHAT THIS BUTTON DOES:
-        #   Activates the "Calls" lighting scene - optimized lighting for
-        #   video calls (good front lighting, reduced background glare).
+        #   Enables or disables the chair occupied automation for the office lights.
         #
         # WHEN PRESSED:
-        #   Calls Home Assistant service: switch.toggle
-        #   Target: switch.office_calls_stateful_scene
+        #   Calls Home Assistant service: automation.toggle
+        #   Target: automation.chair_occupied
         #
         # HOW THE BUTTON KNOWS IF IT'S ACTIVE:
-        #   sensors.yaml monitors: switch.office_calls_stateful_scene
+        #   sensors.yaml monitors: automation.chair_occupied
         #   When that sensor is ON, this button appears "checked" (highlighted)
         # =========================================================================
         - button: 
             height: $button_height_single
             width: $button_width
             checkable: true
-            id: office_scene_calls_button
+            id: office_lights_automation_button
             styles: control
             grid_cell_column_pos: 1
             grid_cell_row_pos: 0
@@ -151,17 +150,17 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  id: office_scene_calls_icon                
-                  text: $videocall
+                  id: office_lights_automation_icon                
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  id: office_scene_calls_label
-                  text: "Calls"
+                  id: office_lights_automation_label
+                  text: "Office Lights"
             on_press:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: automation.toggle
                   data:
-                    entity_id: switch.office_calls_stateful_scene
+                    entity_id: automation.chair_occupied
 
         # =========================================================================
         # BUTTON: Evening Scene
