@@ -77,9 +77,21 @@ sensor:
     on_value:
       - lvgl.label.update:
           id: temperatures
-          text:
-            format: "%d° / %d°"
-            args: [ '(int)round(id(salon_temperature).state)', '(int)round(x)' ]
+          text: !lambda |-
+            static char buf[32];
+            bool in_valid = id(salon_temperature).has_state() && !std::isnan(id(salon_temperature).state);
+            bool out_valid = id(outdoor_temperature).has_state() && !std::isnan(id(outdoor_temperature).state);
+            
+            if (in_valid && out_valid) {
+              snprintf(buf, sizeof(buf), "%d° / %d°", (int)round(id(salon_temperature).state), (int)round(id(outdoor_temperature).state));
+            } else if (in_valid) {
+              snprintf(buf, sizeof(buf), "%d° / --°", (int)round(id(salon_temperature).state));
+            } else if (out_valid) {
+              snprintf(buf, sizeof(buf), "--° / %d°", (int)round(id(outdoor_temperature).state));
+            } else {
+              snprintf(buf, sizeof(buf), "--° / --°");
+            }
+            return buf;
 
   # ===========================================================================
   # SENSOR: Outdoor Temperature
@@ -109,9 +121,21 @@ sensor:
     on_value:
       - lvgl.label.update:
           id: temperatures
-          text:
-            format: "%d° / %d°"
-            args: [ '(int)round(x)', '(int)round(id(outdoor_temperature).state)' ]
+          text: !lambda |-
+            static char buf[32];
+            bool in_valid = id(salon_temperature).has_state() && !std::isnan(id(salon_temperature).state);
+            bool out_valid = id(outdoor_temperature).has_state() && !std::isnan(id(outdoor_temperature).state);
+            
+            if (in_valid && out_valid) {
+              snprintf(buf, sizeof(buf), "%d° / %d°", (int)round(id(salon_temperature).state), (int)round(id(outdoor_temperature).state));
+            } else if (in_valid) {
+              snprintf(buf, sizeof(buf), "%d° / --°", (int)round(id(salon_temperature).state));
+            } else if (out_valid) {
+              snprintf(buf, sizeof(buf), "--° / %d°", (int)round(id(outdoor_temperature).state));
+            } else {
+              snprintf(buf, sizeof(buf), "--° / --°");
+            }
+            return buf;
 
   # ===========================================================================
   # SENSOR: Office Blind Position
