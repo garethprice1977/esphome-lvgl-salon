@@ -468,30 +468,6 @@ binary_sensor:
             checked: !lambda return x;
 
   # ===========================================================================
-  # SENSOR: Office Features Scene Active
-  # ===========================================================================
-  # WHAT IT MONITORS:
-  #   Whether the "Features" (LED accent) lighting scene is currently active
-  #   Watches: switch.office_features_stateful_scene in Home Assistant
-  #
-  # WHAT IT UPDATES:
-  #   The "Features" button's visual state (highlighted when active)
-  #
-  # RELATED UI ELEMENT:
-  #   lvgl.yaml → office_scene_features_button
-  # ===========================================================================
-  - platform: homeassistant
-    id: outdoor_lights
-    entity_id: light.outdoors
-    trigger_on_initial_state: true
-    on_state:
-      then:
-        lvgl.widget.update:
-          id: outdoor_lights_button
-          state:
-            checked: !lambda return x;
-
-  # ===========================================================================
   # SENSOR: 3D Printer Power State
   # ===========================================================================
   # WHAT IT MONITORS:
@@ -833,5 +809,103 @@ binary_sensor:
       then:
         lvgl.widget.update:
           id: ceiling_light_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: East Wall Floodlight
+  # ===========================================================================
+  - platform: homeassistant
+    id: east_wall_floodlight_state
+    entity_id: light.reolink_duo_2_wi_fi_east_wall_floodlight
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: east_wall_floodlight_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: East Wall House
+  # ===========================================================================
+  - platform: homeassistant
+    id: east_wall_house_state
+    entity_id: light.floodlight01
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: east_wall_house_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: Garage Inside
+  # ===========================================================================
+  - platform: homeassistant
+    id: garage_inside_state
+    entity_id: light.garage_floodlight
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: garage_inside_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: Garage Outside
+  # ===========================================================================
+  - platform: homeassistant
+    id: garage_outside_state
+    entity_id: light.floodlight_floodlight_floodlight
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: garage_outside_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: Ricardo Floodlight
+  # ===========================================================================
+  - platform: homeassistant
+    id: ricardo_floodlight_state
+    entity_id: light.garage_west_floodlight
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: ricardo_floodlight_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: Veranda Spotlight
+  # ===========================================================================
+  - platform: homeassistant
+    id: veranda_spotlight_state
+    entity_id: light.veranda_light
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: veranda_spotlight_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: Veranda LED Strip
+  # ===========================================================================
+  - platform: homeassistant
+    id: veranda_ledstrip_state
+    entity_id: light.h61e1_5655
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: veranda_ledstrip_button
           state:
             checked: !lambda return x;

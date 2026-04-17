@@ -85,25 +85,15 @@ lvgl:
       widgets:
       
         # =========================================================================
-        # BUTTON: Features Scene
+        # BUTTON: Outdoor Lights Menu
         # =========================================================================
         # WHAT THIS BUTTON DOES:
-        #   Activates the "Features" lighting scene - a preset that turns on
-        #   LED strip accent lighting for a decorative effect.
-        #
-        # WHEN PRESSED:
-        #   Calls Home Assistant service: switch.toggle
-        #   Target: switch.office_features_stateful_scene
-        #
-        # HOW THE BUTTON KNOWS IF IT'S ACTIVE:
-        #   sensors.yaml monitors: switch.office_features_stateful_scene
-        #   When that sensor is ON, this button appears "checked" (highlighted)
-        #   When that sensor is OFF, this button appears unchecked (dimmed)
+        #   Navigates to the dedicated outdoor lights control page.
         # =========================================================================
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: true
+            checkable: false
             id: outdoor_lights_button
             styles: control
             grid_cell_column_pos: 0
@@ -118,11 +108,8 @@ lvgl:
                   align: bottom_left
                   id: scene_features_label
                   text: "Outdoor Lights"
-            on_press:
-              - homeassistant.service:
-                  service: light.toggle
-                  data:
-                    entity_id : light.outdoors
+            on_click:
+              - lvgl.page.show: outdoor_lights_page
 
         # =========================================================================
         # BUTTON: Office Lights (Open Office Controls Page)
@@ -143,7 +130,7 @@ lvgl:
                   text_font: $icon_font
                   align: top_left
                   id: office_nav_icon                
-                  text: $lightbulb
+                  text: $desk
               - label:
                   align: bottom_left
                   id: office_nav_label
@@ -1579,3 +1566,192 @@ lvgl:
                   data:
                     entity_id: light.floor_lamp_bedroom, light.ceiling_light_2nd_bedroom
                     brightness: !lambda return (int)x;
+
+    - id: outdoor_lights_page
+      layout: 
+        type: grid
+        grid_columns: [fr(1), fr(1), fr(1)]
+        grid_rows: [fr(1), fr(1), fr(1)]
+      scrollbar_mode: "off"
+      scroll_dir: "hor"
+      width: 100%
+      bg_color: Black
+      bg_opa: cover
+      pad_top: 34
+      pad_bottom: 5
+      pad_left: 5
+      pad_right: 5
+
+      widgets:
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: false
+            id: outdoor_back_button
+            styles: control
+            grid_cell_column_pos: 0
+            grid_cell_row_pos: 0
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $chevron_left
+              - label:
+                  align: bottom_left
+                  text: "Back"
+            on_click:
+              - lvgl.page.show: main_page
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: east_wall_floodlight_button
+            styles: control
+            grid_cell_column_pos: 1
+            grid_cell_row_pos: 0
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $floodlight
+              - label:
+                  align: bottom_left
+                  text: "East Wall"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.reolink_duo_2_wi_fi_east_wall_floodlight
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: east_wall_house_button
+            styles: control
+            grid_cell_column_pos: 2
+            grid_cell_row_pos: 0
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $floodlight
+              - label:
+                  align: bottom_left
+                  text: "East Wall\nHouse"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.floodlight01
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: garage_inside_button
+            styles: control
+            grid_cell_column_pos: 0
+            grid_cell_row_pos: 1
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $floodlight
+              - label:
+                  align: bottom_left
+                  text: "Garage\nInside"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.garage_floodlight
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: garage_outside_button
+            styles: control
+            grid_cell_column_pos: 1
+            grid_cell_row_pos: 1
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $floodlight
+              - label:
+                  align: bottom_left
+                  text: "Garage\nOutside"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.floodlight_floodlight_floodlight
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: ricardo_floodlight_button
+            styles: control
+            grid_cell_column_pos: 2
+            grid_cell_row_pos: 1
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $floodlight
+              - label:
+                  align: bottom_left
+                  text: "Ricardo"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.garage_west_floodlight
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: veranda_spotlight_button
+            styles: control
+            grid_cell_column_pos: 0
+            grid_cell_row_pos: 2
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $spotlight
+              - label:
+                  align: bottom_left
+                  text: "Veranda\nSpot Light"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.veranda_light
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: veranda_ledstrip_button
+            styles: control
+            grid_cell_column_pos: 1
+            grid_cell_row_pos: 2
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $ledstrip
+              - label:
+                  align: bottom_left
+                  text: "Veranda\nLED Strip"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.h61e1_5655
