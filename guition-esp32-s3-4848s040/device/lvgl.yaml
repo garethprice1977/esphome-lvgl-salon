@@ -125,24 +125,16 @@ lvgl:
                     entity_id : light.outdoors
 
         # =========================================================================
-        # BUTTON: Office Lights Automation
+        # BUTTON: Office Lights (Open Office Controls Page)
         # =========================================================================
         # WHAT THIS BUTTON DOES:
-        #   Enables or disables the chair occupied automation for the office lights.
-        #
-        # WHEN PRESSED:
-        #   Calls Home Assistant service: automation.toggle
-        #   Target: automation.chair_occupied
-        #
-        # HOW THE BUTTON KNOWS IF IT'S ACTIVE:
-        #   sensors.yaml monitors: automation.chair_occupied
-        #   When that sensor is ON, this button appears "checked" (highlighted)
+        #   Navigates to the dedicated office control page for lights.
         # =========================================================================
         - button: 
             height: $button_height_single
             width: $button_width
-            checkable: true
-            id: office_lights_automation_button
+            checkable: false
+            id: office_nav_button
             styles: control
             grid_cell_column_pos: 1
             grid_cell_row_pos: 0
@@ -150,17 +142,14 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  id: office_lights_automation_icon                
+                  id: office_nav_icon                
                   text: $lightbulb
               - label:
                   align: bottom_left
-                  id: office_lights_automation_label
-                  text: "Office Lights"
-            on_press:
-              - homeassistant.service:
-                  service: automation.toggle
-                  data:
-                    entity_id: automation.chair_occupied
+                  id: office_nav_label
+                  text: "Office"
+            on_click:
+              - lvgl.page.show: office_page
 
         # =========================================================================
         # BUTTON: Evening Scene
@@ -1470,3 +1459,123 @@ lvgl:
                               return id(heating_target_temperature).state + 0.5f;
                             }
                             return 0.0f;
+
+    - id: office_page
+      layout: 
+        type: grid
+        grid_columns: [fr(1), fr(1), fr(1)]
+        grid_rows: [fr(1), fr(1), fr(1)]
+      scrollbar_mode: "off"
+      scroll_dir: "hor"
+      width: 100%
+      bg_color: Black
+      bg_opa: cover
+      pad_top: 34
+      pad_bottom: 5
+      pad_left: 5
+      pad_right: 5
+
+      widgets:
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: false
+            id: office_back_button
+            styles: control
+            grid_cell_column_pos: 0
+            grid_cell_row_pos: 0
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $chevron_left
+              - label:
+                  align: bottom_left
+                  text: "Back"
+            on_click:
+              - lvgl.page.show: main_page
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: office_lights_automation_button
+            styles: control
+            grid_cell_column_pos: 1
+            grid_cell_row_pos: 0
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  id: office_lights_automation_icon                
+                  text: $lightbulb
+              - label:
+                  align: bottom_left
+                  id: office_lights_automation_label
+                  text: "Office Lights\nAutomation"
+            on_press:
+              - homeassistant.service:
+                  service: automation.toggle
+                  data:
+                    entity_id: automation.chair_occupied
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: floor_lamp_button
+            styles: control
+            grid_cell_column_pos: 2
+            grid_cell_row_pos: 0
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $ledstrip
+              - label:
+                  align: bottom_left
+                  text: "Floor Lamp"
+            on_press:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.floor_lamp_bedroom
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: ceiling_light_button
+            styles: control
+            grid_cell_column_pos: 0
+            grid_cell_row_pos: 1
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $light_recessed
+              - label:
+                  align: bottom_left
+                  text: "Ceiling \nLight"
+            on_press:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.ceiling_light_2nd_bedroom
+
+        - slider:
+            id: office_lights_slider
+            width: 80%
+            align: center
+            height: 20
+            grid_cell_column_pos: 1
+            grid_cell_row_pos: 1
+            grid_cell_column_span: 2
+            min_value: 0
+            max_value: 255
+            on_release:
+              - homeassistant.service:
+                  service: light.turn_on
+                  data:
+                    entity_id: light.floor_lamp_bedroom, light.ceiling_light_2nd_bedroom
+                    brightness: !lambda return (int)x;

@@ -41,6 +41,18 @@
 sensor:
 
   # ===========================================================================
+  # SENSOR: Floor Lamp Brightness
+  # ===========================================================================
+  - platform: homeassistant
+    id: floor_lamp_bedroom_brightness
+    entity_id: light.floor_lamp_bedroom
+    attribute: brightness
+    on_value:
+      - lvgl.slider.update:
+          id: office_lights_slider
+          value: !lambda return (int)x;
+
+  # ===========================================================================
   # SENSOR: Office Temperature (Indoor)
   # ===========================================================================
   # WHAT IT MONITORS:
@@ -793,5 +805,33 @@ binary_sensor:
       then:
         lvgl.widget.update:
           id: network_rack_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: Floor Lamp Bedroom State
+  # ===========================================================================
+  - platform: homeassistant
+    id: floor_lamp_bedroom_state
+    entity_id: light.floor_lamp_bedroom
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: floor_lamp_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
+  # SENSOR: Ceiling Light 2nd Bedroom State
+  # ===========================================================================
+  - platform: homeassistant
+    id: ceiling_light_2nd_bedroom_state
+    entity_id: light.ceiling_light_2nd_bedroom
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: ceiling_light_button
           state:
             checked: !lambda return x;
