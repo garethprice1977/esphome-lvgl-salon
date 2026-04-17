@@ -139,25 +139,24 @@ lvgl:
               - lvgl.page.show: office_page
 
         # =========================================================================
-        # BUTTON: Evening Scene
+        # BUTTON: Salon Lights
         # =========================================================================
         # WHAT THIS BUTTON DOES:
-        #   Activates the "Evening" lighting scene - warm, ambient lighting
-        #   for relaxed evening use (lower brightness, warmer colors).
+        #   Runs the script.livingroom_lights script
         #
         # WHEN PRESSED:
-        #   Calls Home Assistant service: switch.toggle
-        #   Target: switch.office_evening_stateful_scene
+        #   Calls Home Assistant service: script.turn_on
+        #   Target: script.livingroom_lights
         #
         # HOW THE BUTTON KNOWS IF IT'S ACTIVE:
-        #   sensors.yaml monitors: switch.office_evening_stateful_scene
+        #   sensors.yaml monitors: light.living_room_lights
         #   When that sensor is ON, this button appears "checked" (highlighted)
         # =========================================================================
         - button: 
             height: $button_height_single
             width: $button_width
             checkable: true
-            id: office_scene_evening_button
+            id: salon_lights_button
             styles: control
             grid_cell_column_pos: 2
             grid_cell_row_pos: 0
@@ -165,17 +164,17 @@ lvgl:
               - label:
                   text_font: $icon_font
                   align: top_left
-                  id: office_scene_evening_icon                
-                  text: $nightlight
+                  id: salon_lights_icon                
+                  text: $lightbulb
               - label:
                   align: bottom_left
-                  id: office_scene_evening_label
-                  text: "Evening"
+                  id: salon_lights_label
+                  text: "Salon \nLights"
             on_press:
               - homeassistant.service:
-                  service: switch.toggle
+                  service: script.turn_on
                   data:
-                    entity_id: switch.office_evening_stateful_scene
+                    entity_id: script.livingroom_lights
 
         # =========================================================================
         # BUTTON: Dimmed Scene

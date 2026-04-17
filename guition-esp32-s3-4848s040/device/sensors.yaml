@@ -390,32 +390,25 @@ text_sensor:
 binary_sensor:
 
   # ===========================================================================
-  # SENSOR: Office Evening Scene Active
+  # SENSOR: Salon Lights Active
   # ===========================================================================
   # WHAT IT MONITORS:
-  #   Whether the "Evening" lighting scene is currently active
-  #   Watches: switch.office_evening_stateful_scene in Home Assistant
+  #   Whether the light.living_room_lights is currently active
   #
   # WHAT IT UPDATES:
-  #   The "Evening" button's visual state (highlighted when active)
-  #
-  # HOW IT WORKS:
-  #   Home Assistant has a binary sensor that's ON when the evening scene
-  #   is active. When this changes, the button appearance updates to match.
-  #   "trigger_on_initial_state: true" ensures the button shows correctly
-  #   right when the device boots up, not just when state changes later.
+  #   The "Salon Lights" button's visual state (highlighted when active)
   #
   # RELATED UI ELEMENT:
-  #   lvgl.yaml → office_scene_evening_button
+  #   lvgl.yaml → salon_lights_button
   # ===========================================================================
   - platform: homeassistant
-    id: office_scene_evening
-    entity_id: switch.office_evening_stateful_scene
+    id: salon_lights_state
+    entity_id: light.living_room_lights
     trigger_on_initial_state: true
     on_state:
       then:
         lvgl.widget.update:
-          id: office_scene_evening_button
+          id: salon_lights_button
           state:
             checked: !lambda return x;
 
