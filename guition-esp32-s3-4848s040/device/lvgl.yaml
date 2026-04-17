@@ -1606,9 +1606,31 @@ lvgl:
             height: $button_height_single
             width: $button_width
             checkable: true
-            id: east_wall_floodlight_button
+            id: all_outdoor_lights_button
             styles: control
             grid_cell_column_pos: 1
+            grid_cell_row_pos: 0
+            widgets:
+              - label:
+                  text_font: $icon_font
+                  align: top_left
+                  text: $lightbulb
+              - label:
+                  align: bottom_left
+                  text: "All"
+            on_click:
+              - homeassistant.service:
+                  service: light.toggle
+                  data:
+                    entity_id: light.outdoors
+
+        - button: 
+            height: $button_height_single
+            width: $button_width
+            checkable: true
+            id: east_wall_floodlight_button
+            styles: control
+            grid_cell_column_pos: 2
             grid_cell_row_pos: 0
             widgets:
               - label:
@@ -1630,8 +1652,8 @@ lvgl:
             checkable: true
             id: east_wall_house_button
             styles: control
-            grid_cell_column_pos: 2
-            grid_cell_row_pos: 0
+            grid_cell_column_pos: 0
+            grid_cell_row_pos: 1
             widgets:
               - label:
                   text_font: $icon_font
@@ -1652,7 +1674,7 @@ lvgl:
             checkable: true
             id: garage_inside_button
             styles: control
-            grid_cell_column_pos: 0
+            grid_cell_column_pos: 1
             grid_cell_row_pos: 1
             widgets:
               - label:
@@ -1674,7 +1696,7 @@ lvgl:
             checkable: true
             id: garage_outside_button
             styles: control
-            grid_cell_column_pos: 1
+            grid_cell_column_pos: 2
             grid_cell_row_pos: 1
             widgets:
               - label:
@@ -1696,8 +1718,8 @@ lvgl:
             checkable: true
             id: ricardo_floodlight_button
             styles: control
-            grid_cell_column_pos: 2
-            grid_cell_row_pos: 1
+            grid_cell_column_pos: 0
+            grid_cell_row_pos: 2
             widgets:
               - label:
                   text_font: $icon_font
@@ -1718,7 +1740,7 @@ lvgl:
             checkable: true
             id: veranda_spotlight_button
             styles: control
-            grid_cell_column_pos: 0
+            grid_cell_column_pos: 1
             grid_cell_row_pos: 2
             widgets:
               - label:
@@ -1740,7 +1762,7 @@ lvgl:
             checkable: true
             id: veranda_ledstrip_button
             styles: control
-            grid_cell_column_pos: 1
+            grid_cell_column_pos: 2
             grid_cell_row_pos: 2
             widgets:
               - label:

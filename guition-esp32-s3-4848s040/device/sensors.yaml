@@ -813,6 +813,20 @@ binary_sensor:
             checked: !lambda return x;
 
   # ===========================================================================
+  # SENSOR: All Outdoor Lights
+  # ===========================================================================
+  - platform: homeassistant
+    id: all_outdoor_lights_state
+    entity_id: light.outdoors
+    trigger_on_initial_state: true
+    on_state:
+      then:
+        lvgl.widget.update:
+          id: all_outdoor_lights_button
+          state:
+            checked: !lambda return x;
+
+  # ===========================================================================
   # SENSOR: East Wall Floodlight
   # ===========================================================================
   - platform: homeassistant
