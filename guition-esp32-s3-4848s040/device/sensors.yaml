@@ -116,7 +116,7 @@ sensor:
   #   lvgl.yaml → temperatures label (id: temperatures)
   # ===========================================================================
   - platform: homeassistant
-    entity_id: sensor.zone_1_temperature_humidity_temperature
+    entity_id: sensor.salon_zone_1_room_temperature
     id: salon_temperature
     on_value:
       - lvgl.label.update:
